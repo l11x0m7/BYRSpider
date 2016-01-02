@@ -79,8 +79,6 @@ class Spider_Model:
 
         # 匹配content
         content = re.findall(r'<li.*?<div class="sp">(.*?)FROM.*?</li>', unicodePage, re.S)
-        if page=='1':
-                print content
         # 过滤精彩评论
         if tag:
             content[1] = re.findall(r'<div class="sp">(.*?)<', content[1], re.S)[-1]
@@ -97,8 +95,6 @@ class Spider_Model:
                 content[i] = match[0]
             # 消除插入的图片并获取图片下载路径
             match = re.findall(r'(.*?)<a target="_blank".*?src="(.*?)".*?"/>(.*)', content[i], re.S)
-            if page=='1' and i==0:
-                print match
             real_content = ''
             while True:
             # if len(match)>0:
@@ -231,11 +227,10 @@ if __name__ == '__main__':
     # headers = {
     #     'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'
     # }
-    url = 'http://bbs.byr.cn/#!article/Java/46891'
-    data = urllib.urlencode({})
-    newurl = UrlToMobile(url)
-    spider = Spider_Model(newurl)
-    # req = urllib2.Request(newurl, data, headers)
-    # res = urllib2.urlopen(req)
-    spider.LoadWholePages()
-    spider.WriteTiezi()
+    with open('url.txt') as fr:
+        for line in fr:
+            url = line.strip()
+            newurl = UrlToMobile(url)
+            spider = Spider_Model(newurl)
+            spider.LoadWholePages()
+            spider.WriteTiezi()
