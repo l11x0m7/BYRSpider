@@ -1,3 +1,4 @@
 # BYRSpider
 get the whole info from the byr forum
-请个人下载使用，不要传播。
+please keep it in use by yourself only without spreading.
+just change the address in the code and then run it.
